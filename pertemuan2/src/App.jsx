@@ -3,13 +3,6 @@ import TodoInput from "./components/TodoInput";
 import TodoItem from "./components/TodoItem";
 import TodoStats from "./components/TodoStats";
 
-// =============================================
-// KOMPONEN INDUK: App
-// Konsep: useState (state todos & filter)
-//         useEffect (simpan ke localStorage)
-//         Props (kirim data & fungsi ke anak)
-// =============================================
-
 const INITIAL_TODOS = [
   {
     id: 1,
@@ -42,17 +35,13 @@ const INITIAL_TODOS = [
 ];
 
 const App = () => {
-  // ── STATE ──────────────────────────────────
-  // useState: menyimpan daftar todo
   const [todos, setTodos] = useState(() => {
     const saved = localStorage.getItem("todos_praktikum2");
     return saved ? JSON.parse(saved) : INITIAL_TODOS;
   });
 
-  // useState: filter aktif (all / active / done)
   const [filter, setFilter] = useState("all");
 
-  // useState: menghitung ID berikutnya
   const [nextId, setNextId] = useState(
     () =>
       Math.max(
@@ -62,13 +51,9 @@ const App = () => {
       ) + 1,
   );
 
-  // ── EFFECTS ────────────────────────────────
-  // useEffect: simpan todos ke localStorage setiap kali berubah
   useEffect(() => {
     localStorage.setItem("todos_praktikum2", JSON.stringify(todos));
-  }, [todos]); // dependency array: jalankan ulang jika todos berubah
-
-  // useEffect: ubah judul halaman sesuai jumlah tugas aktif
+  }, [todos]);
   useEffect(() => {
     const active = todos.filter((t) => !t.done).length;
     document.title =
@@ -77,32 +62,26 @@ const App = () => {
         : "Todo List — Praktikum React";
   }, [todos]);
 
-  // ── HANDLERS ──────────────────────────────
-  // Fungsi tambah todo — akan dikirim sebagai Props ke TodoInput
   const handleAdd = (text, priority) => {
     const newTodo = { id: nextId, text, done: false, priority };
     setTodos([newTodo, ...todos]);
     setNextId(nextId + 1);
   };
 
-  // Fungsi toggle selesai — akan dikirim sebagai Props ke TodoItem
   const handleToggle = (id) => {
     setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
   };
 
-  // Fungsi hapus todo — akan dikirim sebagai Props ke TodoItem
   const handleDelete = (id) => {
     setTodos(todos.filter((t) => t.id !== id));
   };
 
-  // ── FILTER ────────────────────────────────
   const filteredTodos = todos.filter((t) => {
     if (filter === "active") return !t.done;
     if (filter === "done") return t.done;
     return true;
   });
 
-  // ── RENDER ────────────────────────────────
   return (
     <div style={styles.wrapper}>
       <div style={styles.app}>
@@ -143,13 +122,10 @@ const App = () => {
           </div>
         </div>
 
-        {/* TodoStats — menerima props: todos */}
         <TodoStats todos={todos} />
 
-        {/* TodoInput — menerima props: onAdd (fungsi callback) */}
         <TodoInput onAdd={handleAdd} />
 
-        {/* Filter buttons */}
         <div style={styles.filterRow}>
           {["all", "active", "done"].map((f) => (
             <button
@@ -165,7 +141,6 @@ const App = () => {
           ))}
         </div>
 
-        {/* Daftar TodoItem — setiap item menerima props: todo, onToggle, onDelete */}
         {filteredTodos.length === 0 ? (
           <div style={styles.empty}>
             <p style={{ fontSize: "32px" }}>✅</p>
@@ -175,9 +150,9 @@ const App = () => {
           filteredTodos.map((todo) => (
             <TodoItem
               key={todo.id}
-              todo={todo} /* Props: data todo */
-              onToggle={handleToggle} /* Props: fungsi toggle */
-              onDelete={handleDelete} /* Props: fungsi hapus */
+              todo={todo}
+              onToggle={handleToggle}
+              onDelete={handleDelete}
             />
           ))
         )}

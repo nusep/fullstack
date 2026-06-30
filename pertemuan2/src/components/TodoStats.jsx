@@ -1,12 +1,6 @@
 import React from "react";
 
-// =============================================
-// KOMPONEN: TodoStats
-// Konsep: Props (todos) — menerima array dari induk
-//         Menampilkan statistik dan progress bar
-// =============================================
 const TodoStats = ({ todos }) => {
-  // Menghitung dari props yang diterima
   const total = todos.length;
   const done = todos.filter((t) => t.done).length;
   const active = total - done;
@@ -14,14 +8,12 @@ const TodoStats = ({ todos }) => {
 
   return (
     <div style={styles.container}>
-      {/* Kartu statistik */}
       <div style={styles.grid}>
         <StatCard label="Total" value={total} color="#222" />
         <StatCard label="Belum selesai" value={active} color="#7F77DD" />
         <StatCard label="Selesai" value={done} color="#1D9E75" />
       </div>
 
-      {/* Progress bar */}
       <div style={styles.progressBg}>
         <div style={{ ...styles.progressFill, width: `${pct}%` }} />
       </div>
@@ -30,7 +22,6 @@ const TodoStats = ({ todos }) => {
   );
 };
 
-// Sub-komponen StatCard — menggunakan props: label, value, color
 const StatCard = ({ label, value, color }) => (
   <div style={styles.card}>
     <div style={{ ...styles.num, color }}>{value}</div>
@@ -38,7 +29,6 @@ const StatCard = ({ label, value, color }) => (
   </div>
 );
 
-// Default props untuk StatCard
 StatCard.defaultProps = {
   color: "#222",
 };

@@ -1,23 +1,16 @@
 import React, { useState, useRef } from "react";
 
-// =============================================
-// KOMPONEN: TodoInput
-// Konsep: Props (onAdd), useState (input, priority), useRef (fokus input)
-// =============================================
 const TodoInput = ({ onAdd }) => {
-  // useState — menyimpan nilai input dan prioritas
   const [text, setText] = useState("");
   const [priority, setPriority] = useState("medium");
-
-  // useRef — mengakses elemen input DOM langsung
   const inputRef = useRef(null);
 
   const handleSubmit = () => {
     if (text.trim() === "") {
-      inputRef.current.focus(); // useRef: fokus ke input jika kosong
+      inputRef.current.focus();
       return;
     }
-    onAdd(text.trim(), priority); // Props: kirim data ke komponen induk
+    onAdd(text.trim(), priority);
     setText("");
     setPriority("medium");
   };
@@ -30,7 +23,6 @@ const TodoInput = ({ onAdd }) => {
     <div style={styles.container}>
       <h3 style={styles.label}>Tambah Tugas Baru</h3>
       <div style={styles.row}>
-        {/* useRef disematkan ke elemen input */}
         <input
           ref={inputRef}
           type="text"

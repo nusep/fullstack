@@ -1,14 +1,6 @@
 import React from "react";
 
-// =============================================
-// KOMPONEN: TodoItem
-// Konsep: Props (todo, onToggle, onDelete)
-// Komponen anak yang menerima data dari induk (App)
-// =============================================
 const TodoItem = ({ todo, onToggle, onDelete }) => {
-  // Props: todo berisi { id, text, done, priority }
-  // Props: onToggle dan onDelete adalah fungsi callback dari induk
-
   const priorityStyle = {
     high: { background: "#FCEBEB", color: "#791F1F", label: "Tinggi" },
     medium: { background: "#FAEEDA", color: "#633806", label: "Sedang" },
@@ -23,7 +15,6 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
         opacity: todo.done ? 0.6 : 1,
       }}
     >
-      {/* Tombol centang — memanggil props onToggle */}
       <button
         onClick={() => onToggle(todo.id)}
         style={{
@@ -38,7 +29,6 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
         )}
       </button>
 
-      {/* Teks tugas — ditampilkan dari props todo.text */}
       <span
         style={{
           ...styles.text,
@@ -49,7 +39,6 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
         {todo.text}
       </span>
 
-      {/* Badge prioritas */}
       <span
         style={{
           ...styles.badge,
@@ -60,7 +49,6 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
         {p.label}
       </span>
 
-      {/* Tombol hapus — memanggil props onDelete */}
       <button
         onClick={() => onDelete(todo.id)}
         style={styles.deleteBtn}
