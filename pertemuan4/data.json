@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": 101,
+      "nama": "Irham",
+      "jurusan": "Teknik Informatika",
+      "semester": 4
+    },
+    {
+      "id": 102,
+      "nama": "Ibnu",
+      "jurusan": "Teknik Informatika",
+      "semester": 4
+    },
+    {
+      "id": 103,
+      "nama": "septian",
+      "jurusan": "Manajemen Informatika",
+      "semester": 4
+    }
+  ]
+}
